@@ -90,13 +90,13 @@ public class WaitForOracleApplication {
                     System.exit(0);
                 }
             } catch (SQLException e) {
-                logger.error("Could not verify the integrity of the database, retrying in 5 secs...\n");
+                logger.error("Could not verify the integrity of the database, retrying in %d secs...\n", 
+                    new Object[] { delay / 1000, e});
                 e.printStackTrace();
                 Thread.sleep(delay);
                 continue;
             } catch (IOException e) {
-                logger.error("Command execution failed...\n");
-                e.printStackTrace();
+                logger.error("Command execution failed...\n", e);
                 System.exit(-1);
             }
     }
