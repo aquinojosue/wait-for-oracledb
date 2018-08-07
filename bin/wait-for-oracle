@@ -1,2 +1,2 @@
 #!bin/bash
-java -jar ./wait-for-oracle.jar -h jdbc:oracle:thin:@oracle:1521:xe -u system -p system -c "java -Djava.security.egd=file:/dev/./urandom -jar /app.jar"
+java -jar ./wait-for-oracle.jar "$@"
