@@ -46,6 +46,10 @@ public class WaitForOracleApplication {
         delayOption.setRequired(false);
         options.addOption(delayOption);
 
+        Option exceptionsOption = new Option("e", "exceptions", false, "Show the exception messages with the retry message.");
+        exceptionsOption.setRequired(false);
+        options.addOption(exceptionsOption);
+
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -55,7 +59,7 @@ public class WaitForOracleApplication {
         } catch (ParseException e) {
             System.out.println(e.getMessage());
 
-            formatter.printHelp("wait-for-oracle host user password command [-q query] [-d delay]", options);
+            formatter.printHelp("wait-for-oracle host user password command [-q query] [-d delay] [-e --exceptions]", options);
 
             System.exit(1);
         }
@@ -91,12 +95,19 @@ public class WaitForOracleApplication {
                 }
             } catch (SQLException e) {
                 logger.error("Could not verify the integrity of the database, retrying in {} secs...\n", 
-                    delay / 1000, e);
-                e.printStackTrace();
+                    delay / 1000);
+
+                if (cmd.hasOption("exceptions"))
+                    e.printStackTrace();
+
                 Thread.sleep(delay);
                 continue;
             } catch (IOException e) {
                 logger.error("Command execution failed...\n", e);
+
+                if (cmd.hasOption("exceptions"))
+                    e.printStackTrace();
+
                 System.exit(-1);
             }
     }

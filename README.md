@@ -11,9 +11,10 @@ A small Docker utility to check the availability of an Oracle database, tested w
 It uses maven the OJDBC driver is included under the `driver` folder, to build just run `mvn package` and grab the file that's not prefixed with `original-`, copy both, the jar and the script at the `target` and `bin` directories respectively and run as showed in the example.
 
 ```sh
-usage: wait-for-oracle host user password command [-q query] [-d delay]
+usage: wait-for-oracle host user password command [-q query] [-d delay] [-e --exceptions]
  -c,--command <arg>   The command to run after the verification success.
  -d,--delay <arg>     The delay between tries.
+ -e,--exceptions      Show the exception messages with the retry message.
  -h,--host <arg>      The JDBC connection string. iex:
                       jdbc:oracle:thin:@localhost:1521:xe
  -p,--pass <arg>      The database password.
