@@ -90,8 +90,8 @@ public class WaitForOracleApplication {
                     System.exit(0);
                 }
             } catch (SQLException e) {
-                logger.error("Could not verify the integrity of the database, retrying in %d secs...\n", 
-                    new Object[] { delay / 1000, e});
+                logger.error("Could not verify the integrity of the database, retrying in {} secs...\n", 
+                    delay / 1000, e);
                 e.printStackTrace();
                 Thread.sleep(delay);
                 continue;
